@@ -12,9 +12,9 @@ The **Library Management System** is a web-based application built with **Node.j
 - **Display User ID and Issued Books**: View which books are issued to which users
 
 ## Tech Stack
-- **Backend:** Node.js, Express.js
+- **Backend:** Node.js
 - **Database:** MySQL
-- **Frontend :**  EJS 
+- **Frontend:** EJS
 
 ## Installation
 ### Prerequisites
@@ -40,7 +40,6 @@ Ensure you have the following installed:
      DB_USER=root
      DB_PASSWORD=yourpassword
      DB_NAME=library_db
-     JWT_SECRET=your_secret_key
      ```
 4. Set up the database:
    ```sh
@@ -52,18 +51,6 @@ Ensure you have the following installed:
    npm start
    ```
 6. Access the application at `http://localhost:3000`
-
-## API Endpoints
-| Method | Endpoint            | Description                       |
-|--------|--------------------|-----------------------------------|
-| POST   | /admin/login       | Admin login                      |
-| POST   | /users             | Add a new user record (Admin only) |
-| GET    | /users             | Get all user records             |
-| POST   | /books             | Add a new book (Admin only)      |
-| GET    | /books             | Get all books                    |
-| POST   | /issue/:bookId     | Issue a book to a user           |
-| POST   | /return/:bookId    | Return a borrowed book           |
-| GET    | /issued-books      | Display user ID and issued books |
 
 ## Contribution Guidelines
 1. Fork the repository
