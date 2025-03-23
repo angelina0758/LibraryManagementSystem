@@ -32,25 +32,12 @@ Ensure you have the following installed:
    ```sh
    npm install
    ```
-3. Configure environment variables:
-   - Create a `.env` file in the root directory
-   - Add the following:
-     ```env
-     DB_HOST=localhost
-     DB_USER=root
-     DB_PASSWORD=yourpassword
-     DB_NAME=library_db
-     ```
-4. Set up the database:
-   ```sh
-   npm run migrate
-   npm run seed  # Optional: Populate with sample data
-   ```
-5. Start the server:
+3. Set up the database manually using the provided SQL schema.
+4. Start the server:
    ```sh
    npm start
    ```
-6. Access the application at `http://localhost:3000`
+5. Access the application at `http://localhost:3000`
 
 ## Contribution Guidelines
 1. Fork the repository
