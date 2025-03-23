@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - LibraryHub</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/stylesLogin.css">
+</head>
+<body>
+    <div class="logo">LibraryHub</div>
+    
+    <!-- Floating books animation -->
+    <div class="floating-book book1"></div>
+    <div class="floating-book book2"></div>
+    <div class="floating-book book3"></div>
+    <div class="floating-book book4"></div>
+    
+    <!-- Particles animation -->
+    <div class="particles" id="particles"></div>
+    
+    <div class="login-container">
+        <h2>Welcome Back</h2>
+        <% if (error) { %>
+            <p class="error"><%= error %></p>
+        <% } %>
+        <form action="/login" method="POST">
+            <div class="input-group">
+                <label for="gmail">Email Address</label>
+                <input type="email" id="gmail" name="gmail_id" required autocomplete="email" placeholder="your.email@gmail.com">
+            </div>
+            <div class="input-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required autocomplete="current-password" placeholder="••••••••">
+            </div>
+            <button type="submit">Sign In</button>
+        </form>
+    </div>
+
+    <script>
+        // Create particles dynamically
+        const particlesContainer = document.getElementById('particles');
+        const particleCount = 20;
+        
+        for (let i = 0; i < particleCount; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            
+            // Random positions
+            particle.style.left = `${Math.random() * 100}%`;
+            particle.style.top = `${Math.random() * 100}%`;
+            
+            // Random sizes
+            const size = Math.random() * 4 + 1;
+            particle.style.width = `${size}px`;
+            particle.style.height = `${size}px`;
+            
+            // Random animation duration and delay
+            const duration = Math.random() * 10 + 15;
+            const delay = Math.random() * 10;
+            particle.style.animationDuration = `${duration}s`;
+            particle.style.animationDelay = `${delay}s`;
+            
+            particlesContainer.appendChild(particle);
+        }
+        
+        // 3D effect on mouse move
+        document.addEventListener('mousemove', (e) => {
+            const container = document.querySelector('.login-container');
+            const xAxis = (window.innerWidth / 2 - e.pageX) / 25;
+            const yAxis = (window.innerHeight / 2 - e.pageY) / 25;
+            
+            container.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
+        });
+        
+        // Reset transform when mouse leaves
+        document.addEventListener('mouseleave', () => {
+            const container = document.querySelector('.login-container');
+            container.style.transform = 'rotateY(0deg) rotateX(0deg)';
+        });
+    </script>
+</body>
+</html>

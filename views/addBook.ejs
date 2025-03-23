@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Book - LibraryHub</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/navbar.css">
+    <link rel="stylesheet" href="/addBook.css">
+</head>
+<body>
+    <%- include("./partials/navbar") %>
+
+    <div class="add-book-container">
+        <h1>Add a New Book</h1>
+        <form class="add-book-form" action="/add-book" method="POST">
+            <div class="form-group">
+                <input type="text" id="title" name="title" placeholder=" " required>
+                <label for="title">Book Title</label>
+            </div>
+
+            <div class="form-group">
+                <input type="text" id="author" name="author" placeholder=" " required>
+                <label for="author">Author Name</label>
+            </div>
+
+            <div class="form-group">
+                <select id="genre" name="genre" required>
+                    <option value="" disabled selected></option>
+                    <option value="Fiction">Fiction</option>
+                    <option value="Non-Fiction">Non-Fiction</option>
+                    <option value="Science Fiction">Science Fiction</option>
+                    <option value="Comedy">Comedy</option>
+                    <option value="Fantasy">Fantasy</option>
+                    <option value="Mystery">Mystery</option>
+                    <option value="Thriller">Thriller</option>
+                    <option value="Romance">Romance</option>
+                    <option value="Horror">Horror</option>
+                    <option value="Historical Fiction">Historical Fiction</option>
+                    <option value="Memoir">Memoir</option>
+                    <option value="Self-Help">Self-Help</option>
+                </select>
+                <label for="genre">Book Genre</label>
+            </div>
+
+            <div class="form-group">
+                <input type="text" id="isbn" name="isbn" placeholder=" " required>
+                <label for="isbn">ISBN Number</label>
+            </div>
+
+            <div class="form-group">
+                <input type="number" id="price" name="price" placeholder=" " step="0.01" required>
+                <label for="price">Book Price</label>
+            </div>
+
+            <button type="submit">
+                <i class="fas fa-plus-circle"></i> Add to Library
+            </button>
+        </form>
+    </div>
+
+    <script>
+        // Add floating class to form groups
+        document.querySelectorAll('.form-group').forEach(group => {
+            group.classList.add('floating');
+        });
+        
+        // For select elements, set value attribute on change to activate the floating label
+        document.querySelectorAll('select').forEach(select => {
+            select.addEventListener('change', function() {
+                this.setAttribute('value', this.value);
+            });
+        });
+    </script>
+</body>
+</html>

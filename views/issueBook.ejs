@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Issue Book - LibraryHub</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/navbar.css">
+    <link rel="stylesheet" href="/issueBook.css">
+</head>
+<body>
+    <%- include("./partials/navbar") %>
+
+    <div class="issue-book-container">
+        <h1>Issue a Book</h1>
+        <form class="issue-book-form" action="/issue-book" method="POST">
+            <div class="form-group">
+                <input type="number" id="userId" name="userId" placeholder=" " required>
+                <label for="userId">User ID</label>
+            </div>
+
+            <div class="form-group">
+                <input type="text" id="bookIds" name="bookIds" placeholder=" " required>
+                <label for="bookIds">Book IDs</label>
+            </div>
+
+            <div class="form-group">
+                <input type="date" id="dueDate" name="dueDate" required>
+                <label for="dueDate">Due Date</label>
+            </div>
+
+            <button type="submit">
+                <i class="fas fa-share"></i> Issue Book
+            </button>
+        </form>
+    </div>
+
+    <script>
+        // Add floating class to form groups
+        document.querySelectorAll('.form-group').forEach(group => {
+            group.classList.add('floating');
+        });
+        
+        // Function to display a message on the page
+        function showMessage() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const message = urlParams.get('message');
+            const type = urlParams.get('type') || 'success';
+            
+            if (message) {
+                // Create a message element with improved styling
+                const messageElement = document.createElement('div');
+                messageElement.textContent = message;
+                messageElement.className = `notification ${type}`;
+                
+                // Append the message element to the body
+                document.body.appendChild(messageElement);
+                
+                // Remove the message after 3 seconds
+                setTimeout(() => {
+                    messageElement.style.opacity = '0';
+                    messageElement.style.transform = 'translate(-50%, -20px)';
+                    messageElement.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+                    
+                    // Remove from DOM after fade out
+                    setTimeout(() => {
+                        document.body.removeChild(messageElement);
+                    }, 300);
+                }, 3000);
+            }
+        }
+        
+        // Call the function when the page loads
+        window.onload = showMessage;
+    </script>
+</body>
+</html>

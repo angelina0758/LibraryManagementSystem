@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library Management System</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #34495e;
+            --accent: #3498db;
+            --accent-light: #4aa3df;
+            --success: #2ecc71;
+            --warning: #f39c12;
+            --danger: #e74c3c;
+            --light: #f5f7fa;
+            --dark: #1a252f;
+            --gray: #95a5a6;
+            --text: #2c3e50;
+            --border: #dce1e8;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light);
+            color: var(--text);
+            line-height: 1.6;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Hero Section */
+        .hero {
+            position: relative;
+            height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            overflow: hidden;
+        }
+        
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.8)), url('/api/placeholder/1600/900');
+            background-position: center;
+            background-size: cover;
+            filter: brightness(0.8);
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            color: white;
+            max-width: 800px;
+            padding: 2rem;
+        }
+        
+        .hero-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            font-weight: 300;
+            letter-spacing: 2px;
+        }
+        
+        .hero-content h1 span {
+            font-weight: 700;
+            color: var(--accent-light);
+        }
+        
+        .hero-content p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            line-height: 1.8;
+        }
+        
+        .divider {
+            width: 100px;
+            height: 4px;
+            background: var(--accent);
+            margin: 0 auto 2rem;
+        }
+        
+        /* About Section */
+        .section {
+            padding: 5rem 0;
+        }
+        
+        .section-dark {
+            background-color: var(--dark);
+            color: white;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+        
+        .section-header h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-header h2::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: var(--accent);
+        }
+        
+        .section-header p {
+            color: var(--gray);
+            max-width: 700px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+        }
+        
+        .section-dark .section-header p {
+            color: #bdc3c7;
+        }
+        
+        /* About Library */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+        
+        .about-image {
+            position: relative;
+            height: 500px;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+        
+        .about-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .about-content h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+        }
+        
+        .about-content p {
+            margin-bottom: 1.5rem;
+            font-size: 1.05rem;
+            color: var(--secondary);
+        }
+        
+        .highlight {
+            color: var(--accent);
+            font-weight: 600;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-top: 2.5rem;
+        }
+        
+        .stat-item {
+            text-align: center;
+            padding: 1.5rem;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+        }
+        
+        .stat-item:hover {
+            transform: translateY(-10px);
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-label {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+        
+        /* Founders Section */
+        .founders-header {
+            margin-bottom: 4rem;
+        }
+        
+        .founder-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+        }
+        
+        .founder-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .founder-card:hover {
+            transform: translateY(-15px);
+        }
+        
+        .founder-image {
+            height: 300px;
+            overflow: hidden;
+        }
+        
+        .founder-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .founder-card:hover .founder-image img {
+            transform: scale(1.1);
+        }
+        
+        .founder-info {
+            padding: 1.5rem;
+            text-align: center;
+        }
+        
+        .founder-info h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+        
+        .founder-info h4 {
+            font-size: 1rem;
+            color: var(--accent);
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+        
+        .founder-info p {
+            color: var(--gray);
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 1.5rem;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 35px;
+            height: 35px;
+            background-color: var(--light);
+            color: var(--primary);
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            background-color: var(--accent);
+            color: white;
+        }
+        
+        /* History Timeline */
+        .history {
+            background-color: #f8f9fa;
+            position: relative;
+        }
+        
+        .history-container {
+            position: relative;
+            margin-top: 4rem;
+            padding-left: 2rem;
+        }
+        
+        .timeline-line {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 4px;
+            background-color: var(--accent);
+        }
+        
+        .timeline-item {
+            position: relative;
+            margin-bottom: 4rem;
+            padding-left: 2rem;
+        }
+        
+        .timeline-item:last-child {
+            margin-bottom: 0;
+        }
+        
+        .timeline-dot {
+            position: absolute;
+            left: -2.2rem;
+            top: 0;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: white;
+            border: 4px solid var(--accent);
+            z-index: 2;
+        }
+        
+        .timeline-date {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+        
+        .timeline-content {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .timeline-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+        
+        .timeline-content p {
+            color: var(--secondary);
+            line-height: 1.7;
+        }
+        
+        /* Gallery Section */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+        
+        .gallery-item {
+            position: relative;
+            height: 250px;
+            overflow: hidden;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+        
+        .gallery-item::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 60%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .gallery-item:hover::after {
+            opacity: 1;
+        }
+        
+        /* Quote Section */
+        .quote-section {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('/api/placeholder/1600/800');
+            background-position: center;
+            background-size: cover;
+            background-attachment: fixed;
+            padding: 6rem 0;
+            text-align: center;
+            color: white;
+        }
+        
+        .quote-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .quote-icon {
+            font-size: 3rem;
+            margin-bottom: 2rem;
+            color: var(--accent-light);
+        }
+        
+        .quote-text {
+            font-size: 2rem;
+            font-style: italic;
+            line-height: 1.5;
+            margin-bottom: 2rem;
+        }
+        
+        .quote-author {
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+        
+        /* Responsive */
+        @media (max-width: 992px) {
+            .about-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .about-image {
+                height: 400px;
+                margin-bottom: 2rem;
+            }
+            
+            .gallery-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .quote-text {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <%- include("./partials/navbar") %>
+    
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-content">
+            <h1>City <span>Central Library</span></h1>
+            <div class="divider"></div>
+            <p>Empowering minds through knowledge and discovery since 1952. Our library offers a sanctuary for readers, researchers, and lifelong learners to explore, connect, and grow.</p>
+        </div>
+    </section>
+    
+    <!-- About Section -->
+    <section class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2>About Our Library</h2>
+                <p>Discover the rich heritage and modern amenities that make our library a cornerstone of the community.</p>
+            </div>
+            
+            <div class="about-grid">
+                <div class="about-image">
+                    <img src="https://thumbs.dreamstime.com/b/elegant-home-library-classic-bookshelf-wall-leather-armchair-dark-academia-aesthetic-elegant-home-library-classic-bookshelf-336329974.jpg" alt="Library Interior">
+                </div>
+                <div class="about-content">
+                    <h3>A Haven for Knowledge Seekers</h3>
+                    <p>The City Central Library stands as a beacon of learning and culture in our community. Established in 1952, our institution has evolved from a modest collection of books to a comprehensive resource center offering diverse media, digital access, and educational programs.</p>
+                    <p>Our <span class="highlight">state-of-the-art facilities</span> include quiet reading rooms, collaborative spaces, multimedia sections, and specialized archives that cater to researchers, students, and casual readers alike.</p>
+                    <p>We take pride in our commitment to accessibility, ensuring that knowledge is available to all members of our community regardless of age, background, or ability.</p>
+                    
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <div class="stat-number">75,000+</div>
+                            <div class="stat-label">Books in Collection</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">12,500</div>
+                            <div class="stat-label">Active Members</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">70</div>
+                            <div class="stat-label">Years of Service</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Founders Section -->
+    <section class="section section-dark">
+        <div class="container">
+            <div class="section-header founders-header">
+                <h2>Our Founders</h2>
+                <p>Visionary individuals who laid the foundation for our library's legacy of excellence and service.</p>
+            </div>
+            
+            <div class="founder-grid">
+                <div class="founder-card">
+                    <div class="founder-image">
+                        <img src="https://plus.unsplash.com/premium_photo-1661593195372-874ca9d29713?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8eW91bmclMjBwcm9mZXNzaW9uYWwlMjB3b21hbnxlbnwwfHwwfHx8MA%3D%3D" alt="Dr. Eleanor Hayes">
+                    </div>
+                    <div class="founder-info">
+                        <h3>Dr. Eleanor Hayes</h3>
+                        <h4>Founding Director (1952-1975)</h4>
+                        <p>A passionate advocate for public education and literacy, Dr. Hayes dedicated her life to creating accessible knowledge repositories in underserved communities.</p>
+                        <div class="social-links">
+                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fas fa-globe"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="founder-card">
+                    <div class="founder-image">
+                        <img src="https://static.vecteezy.com/system/resources/previews/024/354/252/non_2x/businessman-isolated-illustration-ai-generative-free-photo.jpg" alt="Professor James Wilson">
+                    </div>
+                    <div class="founder-info">
+                        <h3>Professor James Wilson</h3>
+                        <h4>Chief Benefactor</h4>
+                        <p>As a prominent historian and philanthropist, Professor Wilson provided the initial endowment that allowed the library to establish its rare book collection and first building.</p>
+                        <div class="social-links">
+                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fas fa-globe"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="founder-card">
+                    <div class="founder-image">
+                        <img src="https://img.freepik.com/premium-photo/confident-corporate-charm-handsome-young-african-american-businessman-standing-indoors-with-his-arms-folded_590464-31666.jpg?semt=ais_hybrid" alt="Margaret Chen">
+                    </div>
+                    <div class="founder-info">
+                        <h3>Margaret Chen</h3>
+                        <h4>Head Librarian (1952-1980)</h4>
+                        <p>With innovative approaches to cataloging and community outreach, Ms. Chen transformed how libraries interact with their communities, establishing programs that continue today.</p>
+                        <div class="social-links">
+                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fas fa-globe"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- History Timeline -->
+    <section class="section history">
+        <div class="container">
+            <div class="section-header">
+                <h2>Our History</h2>
+                <p>Journey through the key milestones that have shaped our institution over seven decades of community service.</p>
+            </div>
+            
+            <div class="history-container">
+                <div class="timeline-line"></div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-date">1952</div>
+                    <div class="timeline-content">
+                        <h3>Foundation & Opening</h3>
+                        <p>The City Central Library was established with an initial collection of 5,000 books in a modest building donated by the Wilson Foundation. Dr. Eleanor Hayes was appointed as the founding director, with a mission to promote literacy and lifelong learning.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-date">1968</div>
+                    <div class="timeline-content">
+                        <h3>Major Expansion</h3>
+                        <p>Following a successful community fundraising campaign, the library expanded to its current main building, tripling its capacity and adding dedicated children's and research sections. The architectural design won several awards for its innovative use of natural light.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-date">1985</div>
+                    <div class="timeline-content">
+                        <h3>Technological Revolution</h3>
+                        <p>Our library became one of the first in the region to implement a computerized catalog system, revolutionizing how patrons could search and access materials. This period also saw the introduction of multimedia resources to our growing collection.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-date">2002</div>
+                    <div class="timeline-content">
+                        <h3>Golden Anniversary & Modernization</h3>
+                        <p>Celebrating 50 years of service, the library underwent a comprehensive renovation to update facilities while preserving its historical character. A digital media lab, community meeting spaces, and a café were added to meet evolving community needs.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-date">2022</div>
+                    <div class="timeline-content">
+                        <h3>Present Day & Future Vision</h3>
+                        <p>Today, our library stands as a model of how traditional institutions can embrace innovation while maintaining their core mission. With the recent implementation of our advanced Library Management System, we continue to enhance accessibility and efficiency for all users.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Gallery Section -->
+    <section class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Library Gallery</h2>
+                <p>Experience the ambiance and architecture of our spaces through this visual journey.</p>
+            </div>
+            
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <img src="https://images.stockcake.com/public/3/7/7/3778e2a6-775d-48d4-a28f-e6a83f584e37_large/serene-library-reading-stockcake.jpg" alt="Main Reading Room">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://thumbs.dreamstime.com/b/old-library-section-trinity-college-dublin-interior-detail-ireland-97477104.jpg" alt="Historic Archive Section">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://media.istockphoto.com/id/1464393255/photo/small-library-for-elementary-students.jpg?s=612x612&w=0&k=20&c=s_uL_LRp1b6WjIJEHGd-0aJAI9hJu78D6Si3h9Kn4y4=" alt="Children's Area">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://media.istockphoto.com/id/1193288605/photo/computer-and-bookshelves-in-modern-library.jpg?s=612x612&w=0&k=20&c=fSkPFOMdgbF-VE5wsVhb6KF8srgmE0dpBoCu7OsSjJg=" alt="Digital Media Lab">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTqRRlWs7MNnIprRL5jSpitR0VtCw1HmVNvPA&s" alt="Garden Courtyard">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTfKu_JeiGPTvybZKmXbtcr1V2QZ3jAt_ZZw&s" alt="Special Collections">
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Quote Section -->
+    <section class="quote-section">
+        <div class="container">
+            <div class="quote-content">
+                <div class="quote-icon">
+                    <i class="fas fa-quote-left"></i>
+                </div>
+                <p class="quote-text">"A library is not a luxury but one of the necessities of life. The only thing that you absolutely have to know, is the location of the library."</p>
+                <p class="quote-author">— Albert Einstein</p>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!-- navbar.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LibraryHub - Management System</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/navbar.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <a href="/" class="logo">
+            <i class="fas fa-book-open"></i>
+            <span>LibraryHub</span>
+        </a>
+        <div class="nav-links">
+            <a href="/" class="<%= typeof path !== 'undefined' && path === '/' ? 'active' : '' %>">Home</a>
+            <a href="/add-book" class="<%= typeof path !== 'undefined' && path === '/add-book' ? 'active' : '' %>">Add Book</a>
+            <a href="/add-user" class="<%= typeof path !== 'undefined' && path === '/add-user' ? 'active' : '' %>">Add User</a>
+            <a href="/issue-book" class="<%= typeof path !== 'undefined' && path === '/issue-book' ? 'active' : '' %>">Issue Book</a>
+            <a href="/return-book" class="<%= typeof path !== 'undefined' && path === '/return-book' ? 'active' : '' %>">Return Book</a>
+            <a href="/logout" class="<%= typeof path !== 'undefined' && path === '/logout' ? 'active' : '' %>">Logout</a>
+        </div>
+    </nav>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add User - LibraryHub</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/navbar.css">
+    <link rel="stylesheet" href="/addUser.css">
+</head>
+<body>
+    <%- include("./partials/navbar") %>
+
+    <div class="add-user-container">
+        <h1>Add a New User</h1>
+        <form class="add-user-form" action="/add-user" method="POST">
+            <div class="form-group">
+                <input type="text" id="fname" name="fname" placeholder=" " required>
+                <label for="fname">First Name</label>
+            </div>
+
+            <div class="form-group">
+                <input type="text" id="lname" name="lname" placeholder=" " required>
+                <label for="lname">Last Name</label>
+            </div>
+
+            <div class="form-group">
+                <input type="text" id="phone" name="phone" placeholder=" ">
+                <label for="phone">Phone Number</label>
+            </div>
+
+            <div class="form-group">
+                <input type="email" id="email" name="email" placeholder=" " required>
+                <label for="email">Email Address</label>
+            </div>
+
+            <div class="form-group">
+                <input type="text" id="addr" name="addr" placeholder=" ">
+                <label for="addr">Full Address</label>
+            </div>
+
+            <button type="submit">
+                <i class="fas fa-user-plus"></i> Add User
+            </button>
+        </form>
+    </div>
+
+    <script>
+        // Add floating class to form groups
+        document.querySelectorAll('.form-group').forEach(group => {
+            group.classList.add('floating');
+        });
+    </script>
+</body>
+</html>
