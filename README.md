@@ -13,7 +13,7 @@ The **Library Management System** is a web-based application built with **Node.j
 
 ## Tech Stack
 - **Backend:** Node.js, Express.js
-- **Database:** MySQL / PostgreSQL / SQLite (Choose based on project needs)
+- **Database:** MySQL
 - **Frontend :**  EJS 
 
 ## Installation
